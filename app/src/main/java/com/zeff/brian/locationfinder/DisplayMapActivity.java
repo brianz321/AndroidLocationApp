@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class DisplayMapActivity extends FragmentActivity {
@@ -18,11 +21,21 @@ public class DisplayMapActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_map);
         setUpMapIfNeeded();
+
         Intent intent = getIntent();
-        double latitude = intent.getDoubleExtra("Latitude",0.0);
+        double latitude = intent.getDoubleExtra("Latitude", 0.0);
         double longitude = intent.getDoubleExtra("Longitude",0.0);
+        LatLng ourSPOT = new LatLng(latitude, longitude);
         //String lat = Double.toString(latitude);
         //String lng = Double.toString(longitude);
+
+        mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+
+        if(mMap != null){
+            Marker ourSpot = mMap.addMarker(new MarkerOptions().position(ourSPOT));
+        }
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ourSPOT,15));
     }
 
     @Override

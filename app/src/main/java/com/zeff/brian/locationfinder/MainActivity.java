@@ -67,8 +67,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void getLatitudeLongitude(String httpURL){
         RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, httpURL,
-                new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, httpURL, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         findLatitudeLongitude(response);// parse through JSON here
